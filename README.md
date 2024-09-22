@@ -1,13 +1,21 @@
-## Index:
-1 - Create an express with TS project
-2 - Piggyback data on the `Express.Request` object
-3 - Declaration files
-4 - Example of using declaration files to teach TS about `Express.Request` object
+## Index
 
-## 1 - Create an express with TS project
+1. **Creating an Express Project with TypeScript**
+
+2. **Extending the `Express.Request` Object**
+
+   2.1 **Locale Middleware**
+
+3. **Working with Declaration Files**
+
+4. **Using Declaration Files to Extend `Express.Request`**
+
+
+
+## **1 - Creating an Express Project with TypeScript**
 You know the use the package manger of your choice in my case `pnpm`.
 
-So start the project `pp init` or `npm init --yes` or `yarn init` and `git init`. Proceed to install express and typescript with our package manager using the flag `-D` or `--save-dev`, because we won't be using TS in production; this behavior also applies to any kind of library that will only be used in the phase of development such as `prettier`, `eslint` and `@types` files; and create your `tsconfig.json` file: 
+So start the project with your favorite package manger `pnpm init` or `npm init --yes` or `yarn init`. Proceed to install express and typescript with our package manager using the flag `-D` or `--save-dev`, because we won't be using TS in production; this behavior also applies to any kind of library that will only be used in the phase of development such as `prettier`, `eslint` and `@types` files; and create your `tsconfig.json` file: 
  ```bash
  pnpm i -D typescript
  npx tsc --init # create tsconfig.json file
@@ -16,9 +24,7 @@ Inside `tsconfig.json` set `sourceMap: true`, to allow us to debug TS in vscode:
 ```json
 {
     "compilerOptions": {
-         ...
          "sourceMap": true,   /* Create source map files for emitted JavaScript files. */
-         ...
     }
 }
 ```
@@ -33,7 +39,7 @@ Inside `tsconfig.json` set `sourceMap: true`, to allow us to debug TS in vscode:
  ```
 
  Proceed to run the server with `npx tsc -w`; `npx` help us to run commands from an `npm` package (either one installed locally or fetched remotely). 
- `tsc` it's the typescript compiler and with the flag `-f` we tell the TS compiler to watch any change, so it recompile our files.
+ `tsc` it's the typescript compiler and with the flag `-w` we tell the TS compiler to watch any change, so it recompile our files.
 ```bash
 npx tsc -w
 ```
@@ -58,17 +64,30 @@ app.listen(3000, () => {
 ```
 
 Going to definitions to read better libraries looks like this:
-[going to definitions - file tab]()
+![going to definitions - file tab](https://raw.githubusercontent.com/Pratical-Theory/TS-Backend-Good-Pratices/refs/heads/main/img/example-1.gif)
 
-## Extra tips:
+## Extra tips
+### 1. `.gitginore`
 As a good practice when you're using `npx tsc -w` or generally compiling your ts files to js, in your git repo add those files to `.gitignore` with a `*.js` and `*.js.map` so you don't save that unnecessary data. Your `.gitignore` should look like this:
-
 ```
 node_modules
 *.js
 *.js.map
 ```
 
+### 2. `createApplication`
 
-## Credits:
+```ts
+import createApplication from "express";
+const app: Application = createApplication();
+```
+
+```ts
+import express from "express";
+const app: Application = express();
+```
+In terms of performance and execution, both approaches are identical after transpilation. The choice comes down to readability and code style rather than any functional difference.
+
+
+## Credits
 [Express and Typescript declaration files to extend Request object by academeez](https://www.youtube.com/watch?v=W_tbNGERaKw&t=532s)
