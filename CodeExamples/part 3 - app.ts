@@ -3,7 +3,6 @@ import createApplication, {
   type Request,
   type Response,
 } from "express";
-import passport from "passport";
 
 const app: Application = createApplication();
 
@@ -12,14 +11,9 @@ app.use((req: Request, res: Response, next) => {
   next();
 });
 
-app.get(
-  "/",
-  passport.authenticate("jwt", { session: false }),
-  (req: Request, res: Response) => {
-    req.user?.firstName
-    res.send("Hello world");
-  }
-);
+app.get("/", (req: Request, res: Response) => {
+  res.send("Hello world");
+});
 
 app.listen(3000, () => {
   console.log("server started in port 3000");
